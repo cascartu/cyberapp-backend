@@ -50,6 +50,25 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+// POST /api/challenges/:id/validate
+router.post('/:id/validate', async (req, res) => {
+  const { id } = req.params;
+  const { flag } = req.body;
+
+  try {
+    const challenge = await Challenge.findById(id);
+    if (!challenge) return res.status(404).json({ success: false, message: 'Reto no encontrado' });
+
+    if (flag === challenge.flag) {
+      res.json({ success: true, message: '¡Flag correcto!' });
+    } else {
+      res.json({ success: false, message: 'Flag incorrecto' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Error del servidor' });
+  }
+});
 
 
 
