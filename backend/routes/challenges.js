@@ -39,4 +39,19 @@ router.post('/:id/submit', authMiddleware, async (req, res) => {
   }
 });
 
+// Obtener un reto por ID
+router.get('/:id', async (req, res) => {
+  try {
+    const challenge = await Challenge.findById(req.params.id)
+    if (!challenge) return res.status(404).json({ error: 'Challenge not found' })
+    res.json(challenge)
+  } catch (error) {
+    res.status(500).json({ error: 'Error al obtener el reto' })
+  }
+})
+
+
+
+
+
 module.exports = router;
