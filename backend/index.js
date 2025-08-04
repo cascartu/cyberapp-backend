@@ -15,6 +15,9 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/challenges', challengeRoutes);
 app.use('/api/user', userRoutes);
+const validateRoutes = require('./routes/validate');
+app.use('/api/validate', validateRoutes);
+
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
